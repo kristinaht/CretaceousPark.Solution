@@ -18,13 +18,22 @@ namespace CretaceousPark.Controllers
 
     //GET api/animals
     [HttpGet]
-    public ActionResult<IEnumerable<Animal>> Get(string species)
+    public ActionResult<IEnumerable<Animal>> Get(string species, string gender, string name)
     {
       var query = _db.Animals.AsQueryable(); //collects the list of all animals from our database and returns it as a queryabe LINQ object
       if (species != null)
       {
         query = query.Where(entry => entry.Species == species);
       }
+      if (gender != null)
+      {
+        query = query.Where(entry => entry.Gender == gender);
+      }
+      if( name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
       return query.ToList();
     }
 
